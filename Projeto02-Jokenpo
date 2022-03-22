@@ -1,0 +1,137 @@
+/*Projeto 2 - Jokenpô
+O Jokenpô é o popular jogo do "pedra, papel e tesoura". A premissa é simples, você tem 3 elementos para escolher, e cada um deles vence de um, e perde para o outro.
+Pedra ganha da tesoura, mas perde para o papel;
+Tesoura ganha do papel, mas perde para a pedra;
+Papel ganha da pedra, mas perde para a tesoura.
+E para esse projeto você deve desenvolver um programa capaz de:
+Receber o elemento escolhido pelo usuário;
+Escolher um elemento aleatório para o computador;
+Comparar os dois elementos e declarar um vencedor.
+Você pode adaptar o jogo ao seu projeto criado anteriormente (por exemplo fazer um: "Espada, Escudo e Magia") para incrementar ainda mais o seu projeto. Apenas lembre-se de deixar claro para o usuário como funcionará o jogo nesse caso (quem ganha e quem perde de quem).
+Requisitos
+Para esse projeto, os requisitos fundamentais serão:
+Permitir que eu decida quantas rodadas iremos fazer;
+Ler a minha escolha (Pedra, papel ou tesoura, ou os elementos escolhidos por você para o seu jogo);
+Decidir de forma aleatória a decisão do computador;
+Comparar os valores e declarar o vencedor (marcando 1 vitória para ele);
+Repetir os passos 2, 3 e 4 de acordo com o número de rodadas escolhido;
+Ao final das repetições, mostrar quantas rodadas cada jogador ganhou;
+Determinar quem foi o grande campeão de acordo com a quantidade de vitórias de cada um (computador e jogador);
+Perguntar se o Jogador quer jogar novamente: Se sim volte ao primeiro passo, se não finalize o programa.*/
+
+console.clear()
+const prompt = require('prompt-sync')();
+
+//APRESENTACOES e variaveis
+
+const opcoes = ["Pedra", "Papel", "Tesoura"];
+let escolhaJogador = "";
+let qdtRodadas;
+let rodadaAtual = "";
+let jogar = prompt(`Olá deseja jogar um jogo? Responda com 1- Sim ou 2-Não. `);
+
+if ( jogar == 1){
+    const nome = prompt('Então comece me dizendo seu nome? \n');
+    console.log(` ${nome}, o jogo é o Jokenpô, as regras são simples: te daremos 3 opções, 
+    e você escolhe entre Pedra, Papel e Tesoura. Pedra ganha da tesoura, mas perde para o papel;
+    Tesoura ganha do papel, mas perde para a pedra; Papel ganha da pedra, mas perde para a tesoura.`);
+    console.log(`Então ${nome}, agora que você já está por dentro, vamos começar...`)
+
+
+} else {
+    console.log("Tudo bem, fica para a próxima." )
+
+}
+
+// Função para as rodadas
+function qtdRodadas() {
+  while (true) {
+    let rodadas = +prompt("Quantas rodadas você gostaria de jogar? ");
+    if (!isNaN(rodadas) && rodadas != 0) {
+      return rodadas;
+    } else {
+      if (rodadas == 0) {
+        console.log("Ops, digite um valor entre 1 e 20.");
+      } else {
+        console.log("Ops, isso não é um número.");
+      }
+    }
+    console.log();
+  }
+}
+
+
+function playing() {
+  qdtRodadas = qtdRodadas();
+
+// Variaveis de placar
+let pontosMaquina = 0;
+let empate = 0;
+let pontosJogador = 0;
+
+    // ESCOLHA DO JOGADOR
+    for (i = 1; i <= qtdRodadas; i++) {
+      escolhaJogador = +prompt(`Escolha qual deseja jogar (1)-PEDRA (2)-PAPEL (3)-TESOURA \n `);
+      console.clear();
+  
+            // CONDIÇÃO PRA SOMENTE ACEITAR AS OPÇÕES EXISTENTES
+            while (escolhaJogador < 1 || escolhaJogador > 3 || isNaN(escolhaJogador)) {
+              console.clear();
+              console.log(`Digite 1 se quer jogar com a PEDRA, 2 para jogar com o PAPEL ou 3 para TESOURA.`);
+              console.log();
+        
+              escolhaJogador = +prompt(`Escolha qual deseja jogar (1)-PEDRA (2)-PAPEL (3)-TESOURA \n `);
+              console.clear();
+            }
+
+          // ESCOLHA DA MÁQUINA
+    let escolhaMaquina = lista[Math.floor(Math.random() * lista.length)];
+
+
+  
+    
+        // SELECIONANDO O ÍNDICE NA LISTA PARA SER EXIBIDO O NOME DA ESCOLHA
+        (escolhaJogador = elementos[escolhaJogador]), (escolhaMaquina = elementos[escolhaMaquina]);
+
+            // EXIBINDO AS ESCOLHAS
+    rodadaAtual++;
+    console.log(`Rodada: ${rodadaAtual}`);
+    console.log(`Você: ${escolhaJogador}`);
+    console.log(`Maquina: ${escolhaMaquina}`);
+
+  // EXIBINDO O RESULTADO FINAL
+  console.log(`Placar final`);
+  console.log();
+  console.log(`Você venceu: ${pontosJogador}`);
+  console.log(`A máquina venceu: ${pontosMaquina}`);
+  console.log(`Empate: ${empate}`);
+  console.log();
+
+  if (pontosU == pontosMaquina) {
+    console.log(`Houve um empate! `);
+    console.log();
+    console.log(`Gostaria de pedir a revanche? \n`);
+  } else if (pontosJogador > pontosMaquina) {
+    console.log(`Dessa vez o grande vencedor foi o(a) ${nome}.`);
+    console.log();
+    console.log(`Gostaria de mostrar que não foi sorte de principiante?`);
+  } else {
+    console.log(`xii ${nome}, dessa vez não deu pra você. Mais sorte na próxima.`);
+    console.log();
+  }
+  console.log();
+  console.log();
+
+  // Começar de novo
+  do {
+    repete = prompt(`Deseja jogar novamente? `).toLowerCase();
+    console.clear();
+  } while (repete != `sim` && repete != `sim` && repete != `nao` && repete != `nao`);
+
+  // ENCERRANDO O JOGO
+  if (repete == `n` || repete == `nao`) {
+    console.log(`Te aguardamos novamente qualquer hora!`);
+  }
+}
+
+console.log();
